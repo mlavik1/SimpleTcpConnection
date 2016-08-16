@@ -27,17 +27,18 @@ int main(int args, char **argv)
 	SDL_Init(SDL_INIT_EVERYTHING);
 	SDLNet_Init();
 
-
-	int typee = 0;
-	std::cin >> typee;
-	if (typee == ID_SERVER)
+	std::cout << "Type " << ID_SERVER << " if you wish to create a Server" << std::endl;
+	std::cout << "..or  " << ID_CLIENT << " if you wish to create a Client" << std::endl;
+	int type = 0;
+	std::cin >> type;
+	if (type == ID_SERVER)
 		std::cout << "Creating server" << std::endl;
 	else
 		std::cout << "Creating client" << std::endl;
 
 
 	// Server loop
-	if (typee == ID_SERVER)
+	if (type == ID_SERVER)
 	{
 		ServerConnection conn(10);
 		conn.SetMessageCallback([](int socket_index, const char* msg) -> void { std::cout << msg << std::endl; });
@@ -57,7 +58,7 @@ int main(int args, char **argv)
 		conn.SetMessageCallback([](const char* msg) -> void { std::cout << msg << std::endl; });
 
 		const char *host;
-		std::cout << "enter IP" << std::endl;
+		std::cout << "enter IP (or just write 'localhost')" << std::endl;
 		std::string strtmp;
 		std::cin >> strtmp;
 		host = strtmp.c_str();
